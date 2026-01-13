@@ -1,0 +1,15 @@
+# 1. Ignore everything by default 
+/*
+
+# 2. Un-ignore 
+!/hypr/
+!/kitty/
+!/nvim/
+!/rofi/
+!/waybar/
+!/gtk-3.0/
+
+# 3. Un-ignore specific files
+!/mimeapps.list
+!/user-dirs.dirs
+!/.gitignore
