@@ -2,38 +2,107 @@ return {
     {
         "neovim/nvim-lspconfig",
         dependencies = {
-            'saghen/blink.cmp',
-            {
-                "folke/lazydev.nvim",
-                opts = {
-                    library = {
-                        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-                    },
-                },
-            },
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/nvim-cmp",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-cmdline",
+            "saadparwaiz1/cmp_luasnip",
+            "L3MON4D3/LuaSnip",
         },
         config = function()
-            local capabilities = require('blink.cmp').get_lsp_capabilities()
-            vim.lsp.config.lua_ls = {
-                capabilities = capabilities,
-            }
+            require("mason").setup({
+                ensure_installed = {},
+            })
 
-            vim.lsp.enable("lua_ls")
+            require("mason-lspconfig").setup({
+                ensure_installed = {
+                    "lua_ls",
+                    "pyright",
+                    "ts_ls",
+                    "clangd",
+                },
+
+                handlers = {
+                    function(server_name)
+                        require("lspconfig")[server_name].setup({})
+                    end,
+                },
+            })
+
             vim.api.nvim_create_autocmd('LspAttach', {
                 callback = function(args)
-                    local c = vim.lsp.get_client_by_id(args.data.client_id)
-                    if not c then return end
+                    local opts = { buffer = args.buf }
+                    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+                    vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+                    vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+                    vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+                    vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
+                    vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end, opts)
+                    vim.keymap.set("n", "<leader>gn", function() vim.lsp.buf.rename() end, opts)
+                    vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 
-                    if vim.bo.filetype == "lua" then
-                        -- Format the current buffer on save
+                    local client = vim.lsp.get_client_by_id(args.data.client_id)
+                    if not client then return end
+
+                    if client.supports_method("textDocument/formatting") then
                         vim.api.nvim_create_autocmd('BufWritePre', {
                             buffer = args.buf,
                             callback = function()
-                                vim.lsp.buf.format({ bufnr = args.buf, id = c.id })
+                                vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
                             end,
                         })
                     end
                 end,
+            })
+
+            local cmp = require("cmp")
+
+
+            cmp.setup({
+                sources = {
+                    { name = "nvim_lsp" },
+                },
+                mapping = {
+                    ["<C-k>"] = cmp.mapping.select_prev_item(),
+                    ["<C-j>"] = cmp.mapping.select_next_item(),
+                    ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+                    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+                    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+                    ["<C-y>"] = cmp.config.disable,
+                    ["<C-e>"] = cmp.mapping {
+                        i = cmp.mapping.abort(),
+                        c = cmp.mapping.close(),
+                    },
+                    ["<CR>"] = cmp.mapping.confirm { select = false },
+                    ["<Tab>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_next_item()
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
+                    ["<S-Tab>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_prev_item()
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
+                },
+                formatting = {
+                    fields = { "kind", "abbr", "menu" },
+                    format = function(entry, vim_item)
+                        vim_item.menu = ({
+                            nvim_lsp = "[LSP]",
+                            buffer = "[Buffer]",
+                            path = "[Path]",
+                        })[entry.source.name]
+                        return vim_item
+                    end,
+                },
             })
         end,
     }

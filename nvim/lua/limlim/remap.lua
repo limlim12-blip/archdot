@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "U", ":redo<CR>")
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -13,6 +14,7 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "=ap", "ma=ap'a")
 vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>")
+vim.keymap.set('n', '<C-n>', '<cmd>nohlsearch<CR>')
 
 vim.keymap.set({ "n", "v" }, "d", "\"_d")
 vim.keymap.set({ "n", "v" }, "D", "\"_D")
@@ -28,6 +30,14 @@ vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "<M-h>", "<cmd>silent !tmux-sessionizer -s 0 --vsplit<CR>")
 vim.keymap.set("n", "<M-H>", "<cmd>silent !tmux neww tmux-sessionizer -s 0<CR>")
+
+vim.keymap.set("x", "<Tab>", ">V")
+vim.keymap.set("x", "<S-Tab>", "<V")
+vim.keymap.set("v", "<Tab>", ">v")
+vim.keymap.set("v", "<S-Tab>", "<v")
+vim.keymap.set("n", "<Tab>", ">>")
+vim.keymap.set("n", "<S-Tab>", "<<")
+
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
