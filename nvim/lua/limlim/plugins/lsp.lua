@@ -13,21 +13,47 @@ return {
             "L3MON4D3/LuaSnip",
         },
         config = function()
-            require("mason").setup({
-                ensure_installed = {},
-            })
+            local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+            -- FIX 1: Mason setup does not take ensure_installed (that belongs to mason-lspconfig)
+            require("mason").setup({})
 
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     "lua_ls",
-                    "pyright",
                     "ts_ls",
                     "clangd",
                 },
-
                 handlers = {
                     function(server_name)
-                        require("lspconfig")[server_name].setup({})
+                        require("lspconfig")[server_name].setup({ capabilities = capabilities })
+                    end,
+
+                    ["pyright"] = function()
+                        require("lspconfig").pyright.setup({
+                            capabilities = capabilities,
+                            settings = {
+                                python = {
+                                    analysis = {
+                                        typeCheckingMode = "standard",
+
+                                        autoSearchPaths = true,
+                                        useLibraryCodeForTypes = true,
+                                    },
+                                },
+                            },
+                        })
+                    end,
+
+                    ["lua_ls"] = function()
+                        require("lspconfig").lua_ls.setup({
+                            capabilities = capabilities,
+                            settings = {
+                                Lua = {
+                                    diagnostics = { globals = { "vim" } }
+                                }
+                            }
+                        })
                     end,
                 },
             })
@@ -58,13 +84,19 @@ return {
                 end,
             })
 
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+                vim.lsp.handlers.hover,
+                { border = "rounded" }
+            )
+
+            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+                vim.lsp.handlers.signature_help,
+                { border = "rounded" }
+            )
+
             local cmp = require("cmp")
-
-
             cmp.setup({
-                sources = {
-                    { name = "nvim_lsp" },
-                },
+                sources = { { name = "nvim_lsp" } },
                 mapping = {
                     ["<C-k>"] = cmp.mapping.select_prev_item(),
                     ["<C-j>"] = cmp.mapping.select_next_item(),
@@ -78,18 +110,10 @@ return {
                     },
                     ["<CR>"] = cmp.mapping.confirm { select = false },
                     ["<Tab>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_next_item()
-                        else
-                            fallback()
-                        end
+                        if cmp.visible() then cmp.select_next_item() else fallback() end
                     end, { "i", "s" }),
                     ["<S-Tab>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_prev_item()
-                        else
-                            fallback()
-                        end
+                        if cmp.visible() then cmp.select_prev_item() else fallback() end
                     end, { "i", "s" }),
                 },
                 formatting = {

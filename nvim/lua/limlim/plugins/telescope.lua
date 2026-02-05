@@ -4,26 +4,37 @@ return {
         tag = 'v0.2.1',
         dependencies = {
             'nvim-lua/plenary.nvim',
+            "folke/trouble.nvim",
             { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
         },
         config = function()
             local builtin = require('telescope.builtin')
+            local trouble = require("trouble.sources.telescope")
             require('telescope').setup({
                 defaults = {
                     borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
                     layout_strategy = 'horizontal',
                     layout_config = {
-                        width = 0.9,
-                        height = 0.9,
-                        preview_width = 0.5,
+                        width = 0.95,
+                        horizontal = {
+                            preview_width = 0.5,
+                            mirror = false,
+                        },
+                        vertical = {
+                        },
+                        center = {
+                            width = 0.5,
+                        }
                     },
                     mappings = {
                         i = {
                             -- "i" stands for Insert mode
+                            ["<c-f>"] = trouble.open,
                             ["<C-c>"] = require('telescope.actions').close,
                         },
                         n = {
                             -- "n" stands for Normal mode
+                            ["<c-f>"] = trouble.open,
                             ["<C-c>"] = require('telescope.actions').close,
                         },
                     }
