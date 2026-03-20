@@ -30,6 +30,9 @@ vim.keymap.set('n', '<leader>b', '<cmd>Telescope buffers<cr>', { desc = 'List bu
 
 
 vim.keymap.set("i", "<C-c>", "<Esc>")
+vim.keymap.set("i", "Jk", "<Esc>")
+vim.keymap.set("i", "jK", "<Esc>")
+vim.keymap.set("i", "JK", "<Esc>")
 vim.keymap.set("i", "jk", "<Esc>")
 vim.keymap.set("i", "JK", "<Esc>")
 vim.keymap.set("i", "<C-v>", "<C-c>pi")

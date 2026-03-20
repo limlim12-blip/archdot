@@ -51,32 +51,7 @@ return {
             end
         end
 
-        local function toggle_fullscreen()
-            local screen_w = vim.opt.columns:get()
 
-            if api.tree.is_visible() then
-                local win = vim.api.nvim_get_current_win()
-                local width = vim.api.nvim_win_get_width(win)
-                if width < 40 then
-                    api.tree.resize({ width = screen_w })
-                else
-                    api.tree.close()
-                end
-            else
-                api.tree.open()
-                api.tree.resize({ width = screen_w })
-            end
-        end
-
-        local function copy_marked_files()
-            local marks = api.marks.get()
-            if #marks == 0 then
-                print("No files marked")
-                return
-            end
-        end
-        vim.keymap.set('n', 'bc', copy_marked_files)
         vim.keymap.set("n", "<leader>e", toggle_sidebar)
-        vim.keymap.set("n", "<leader>pv", toggle_fullscreen)
     end,
 }

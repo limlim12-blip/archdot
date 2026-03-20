@@ -1,0 +1,13 @@
+
+# vim:fileencoding=utf-8:foldmethod=marker
+
+[mgr]
+[flavor]
+dark = "synthwave84"
+# : Manager {{{
+# Border
+
+border_symbol = " "
+border_style  = { fg = "#838ba7" }
+
+# : }}}

@@ -9,7 +9,7 @@ return {
         workspaces = {
             {
                 name = "Limlim",
-
+                strict = true,
                 path = "/home/lim/Documents/Obsidian_Vault/Limlim",
             },
         },

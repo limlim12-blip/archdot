@@ -8,8 +8,13 @@
 !/rofi/
 !/waybar/
 !/gtk-3.0/
+!/btop/
+!/fastfetch/
+!/ibus/
+!/yazi/
 
 # 3. Un-ignore specific files
 !/mimeapps.list
 !/user-dirs.dirs
 !/.gitignore
+!/tmux/tmux.conf
