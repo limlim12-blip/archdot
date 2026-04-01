@@ -119,10 +119,10 @@
         "interval": 5,
         "on-click": "wlogout",
         "states": {
-            "warning": 20,
-            "critical": 10
-        }
-    },
+            "warning": 30,
+            "critical": 15
+        },
+        "on-update": "/home/lim/.config/dunst/scripts/baterry.sh" },
     "custom/spotify": {
         "exec": "sh -lc \"playerctl -p spotify metadata --format '  {{ artist }} - {{ title }}' 2>/dev/null || echo ''\"",
 
