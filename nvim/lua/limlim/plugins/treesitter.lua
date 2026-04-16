@@ -1,28 +1,39 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        branch = 'master',
+        branch = 'main',
         build = ":TSUpdate",
-        config = function()
-            require 'nvim-treesitter.configs'.setup {
-                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
-                auto_install = true,
-                indent = {
-                    enable = true
-                },
-
-                highlight = {
-                    enable = true,
-                    disable = function(lang, buf)
-                        local max_filesize = 100 * 1024 -- 100 KB
-                        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-                        if ok and stats and stats.size > max_filesize then
-                            return true
-                        end
-                    end,
-                    additional_vim_regex_highlighting = false,
-                },
+        dependencies = {
+            {
+                "vhyrro/luarocks.nvim",
+                priority = 1000,
+                config = true,
             }
+        },
+        config = function()
+            local ts = require('nvim-treesitter')
+
+            ts.setup({
+                highlight = { enable = true },
+            })
+
+            vim.api.nvim_create_autocmd('User', {
+                pattern = 'LazyDone',
+                once = true,
+                callback = function()
+                    ts.install({
+                        'bash', 'comment', 'css', 'diff', 'fish',
+                        'git_config', 'git_rebase', 'gitcommit', 'gitignore',
+                        'html', 'javascript', 'json', 'latex', 'lua',
+                        'luadoc', 'make', 'markdown', 'markdown_inline',
+                        'python', 'query', 'regex', 'scss', 'svelte',
+                        'toml', 'tsx', 'typescript', 'typst', 'vim',
+                        'vimdoc', 'vue', 'xml', 'go',
+                    }, {
+                        max_jobs = 8,
+                    })
+                end,
+            })
         end,
     }
 }

@@ -52,6 +52,6 @@ return {
         end
 
 
-        vim.keymap.set("n", "<leader>e", toggle_sidebar)
+        vim.keymap.set("n", "<leader>-", toggle_sidebar)
     end,
 }

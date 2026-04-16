@@ -10,7 +10,7 @@ return {
             {
                 name = "Limlim",
                 strict = true,
-                path = "/home/lim/Documents/Obsidian_Vault/Limlim",
+                path = "/home/lim/GoogleDrive/Obsidian_Vault/Limlim",
             },
         },
 
@@ -20,7 +20,7 @@ return {
         new_notes_location = "notes_subdir",
 
         daily_notes = {
-            folder = "notes/dailies",
+            folder = "notes/.dailies",
             date_format = "%Y-%m-%d",
             alias_format = "%B %-d, %Y (%A)",
             default_tags = { "daily" },
@@ -39,6 +39,9 @@ return {
         },
 
 
+        attachments = {
+            img_folder = "place_holder_pic",
+        },
         ui = { enable = false },
     },
 
@@ -47,8 +50,19 @@ return {
 
 
         vim.keymap.set("n", "<leader>on", function()
-            vim.cmd("ObsidianTemplate default")
-            vim.defer_fn(function() vim.cmd([[0,/^\S/s/^\n\+//]]) end, 100)
+            -- Use the direct command. If it fails, we catch it.
+            local status, _ = pcall(function()
+                vim.cmd("ObsidianTemplate default")
+            end)
+
+            if status then
+                vim.defer_fn(function()
+                    -- Cleanup extra newlines at top
+                    pcall(vim.cmd, [[0,/^\S/s/^\n\+//]])
+                end, 100)
+            else
+                print("Template 'default' not found or not in a vault")
+            end
         end, { desc = "Apply default template" })
 
         vim.keymap.set("n", "<leader>t", function()

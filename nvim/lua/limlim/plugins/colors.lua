@@ -69,18 +69,20 @@ return {
                     StatusLine = { fg = "rose", bg = "rose", blend = 10 },
                     StatusLineNC = { fg = "subtle", bg = "surface" },
                     CurSearch = { fg = "base", bg = "leaf", inherit = false },
-                    TelescopeBorder = { fg = "highlight_high", bg = "none" },
-                    TelescopeNormal = { bg = "none" },
-                    TelescopeResultsNormal = { fg = "subtle", bg = "none" },
-                    TelescopeSelection = { fg = "rose", bg = "none" },
-                    TelescopeSelectionCaret = { fg = "rose", bg = "rose" },
-                    TelescopePromptNormal = { bg = "none", fg = "none" },
-
+                    -- TelescopeBorder = { fg = "highlight_high", bg = "none" },
+                    -- TelescopeNormal = { bg = "none" },
+                    -- TelescopeResultsNormal = { fg = "subtle", bg = "none" },
+                    -- TelescopeSelection = { fg = "rose", bg = "none" },
+                    -- TelescopeSelectionCaret = { fg = "rose", bg = "rose" },
+                    -- TelescopePromptNormal = { bg = "none", fg = "none" },
+                    Pmenu = { bg = "surface" },
+                    PmenuSel = { bg = "overlay", fg = "text" },
+                    NormalFloat = { bg = "surface" },
+                    FloatBorder = { fg = "muted", bg = "surface" },
                 },
 
             })
 
-            vim.cmd("colorscheme rose-pine-moon")
             -- vim.api.nvim_set_hl(0, "Search", { bg = "#2c313a", fg = "#61afef" })
             -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
             -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
@@ -93,6 +95,8 @@ return {
         end
 
         -- Call the function to apply the theme
+
         ColorMyPencils()
+        vim.cmd("colorscheme rose-pine-main")
     end
 }

@@ -15,7 +15,6 @@ return {
         config = function()
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-            -- FIX 1: Mason setup does not take ensure_installed (that belongs to mason-lspconfig)
             require("mason").setup({})
 
             require("mason-lspconfig").setup({
@@ -23,6 +22,7 @@ return {
                     "lua_ls",
                     "ts_ls",
                     "clangd",
+                    "marksman"
                 },
                 handlers = {
                     function(server_name)
@@ -73,7 +73,7 @@ return {
                     local client = vim.lsp.get_client_by_id(args.data.client_id)
                     if not client then return end
 
-                    if client.supports_method("textDocument/formatting") then
+                    if client:supports_method("textDocument/formatting") then
                         vim.api.nvim_create_autocmd('BufWritePre', {
                             buffer = args.buf,
                             callback = function()
@@ -84,15 +84,15 @@ return {
                 end,
             })
 
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-                vim.lsp.handlers.hover,
-                { border = "rounded" }
-            )
+            -- Hover documentation
+            vim.keymap.set('n', 'K', function()
+                vim.lsp.buf.hover({ border = "rounded" })
+            end, { desc = "Hover Documentation" })
 
-            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-                vim.lsp.handlers.signature_help,
-                { border = "rounded" }
-            )
+            -- Signature help
+            vim.keymap.set('i', '<C-k>', function()
+                vim.lsp.buf.signature_help({ border = "rounded" })
+            end, { desc = "Signature Help" })
 
             local cmp = require("cmp")
             cmp.setup({
