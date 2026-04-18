@@ -28,12 +28,10 @@ return {
                     },
                     mappings = {
                         i = {
-                            -- "i" stands for Insert mode
                             ["<c-f>"] = trouble.open,
                             ["<C-c>"] = require('telescope.actions').close,
                         },
                         n = {
-                            -- "n" stands for Normal mode
                             ["<c-f>"] = trouble.open,
                             ["<C-c>"] = require('telescope.actions').close,
                         },

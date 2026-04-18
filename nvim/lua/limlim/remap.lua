@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "U", ":redo<CR>")
 
+
 vim.keymap.set('n', '<Tab>', ':bnext<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-i>', '<C-i>', { noremap = true })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -25,7 +26,15 @@ vim.keymap.set("n", "=ap", "ma=ap'a")
 vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>")
 vim.keymap.set('n', '<C-n>', '<cmd>nohlsearch<CR>')
 vim.keymap.set("n", "<leader>q", ":botright copen<cr>")
-vim.keymap.set("n", "<c-q>", ":cclose<cr>")
+vim.keymap.set("n", "q", function()
+    if vim.fn.reg_recording() ~= "" then
+        return "q"
+    end
+    if vim.bo.filetype == "qf" then
+        return ":close<CR>"
+    end
+    return "q"
+end, { expr = true, silent = true })
 
 vim.keymap.set({ "n", "v" }, "d", "\"_d")
 vim.keymap.set({ "n", "v" }, "D", "\"_D")
@@ -36,6 +45,7 @@ vim.keymap.set({ "n", "v" }, "C", "\"_C")
 vim.keymap.set('n', '<leader>b', '<cmd>Telescope buffers<cr>', { desc = 'List buffers' })
 
 
+vim.keymap.set({ "n", "x", "o" }, "$", "g_")
 vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("i", "Jk", "<Esc>")
 vim.keymap.set("i", "jK", "<Esc>")

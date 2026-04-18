@@ -1,39 +1,46 @@
+-- File: nvim/lua/limlim/plugins/treesitter.lua
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        branch = 'main',
+        branch = "main",
         build = ":TSUpdate",
-        dependencies = {
-            {
-                "vhyrro/luarocks.nvim",
-                priority = 1000,
-                config = true,
-            }
-        },
         config = function()
-            local ts = require('nvim-treesitter')
+            local ts = require("nvim-treesitter")
 
-            ts.setup({
-                highlight = { enable = true },
-            })
+            ts.setup({})
+            -- File: nvim/lua/limlim/plugins/treesitter.lua
 
-            vim.api.nvim_create_autocmd('User', {
-                pattern = 'LazyDone',
-                once = true,
+            -- TỰ ĐỘNG BẬT MÀU (Bản cập nhật chống lỗi .conf)
+            vim.api.nvim_create_autocmd("FileType", {
                 callback = function()
-                    ts.install({
-                        'bash', 'comment', 'css', 'diff', 'fish',
-                        'git_config', 'git_rebase', 'gitcommit', 'gitignore',
-                        'html', 'javascript', 'json', 'latex', 'lua',
-                        'luadoc', 'make', 'markdown', 'markdown_inline',
-                        'python', 'query', 'regex', 'scss', 'svelte',
-                        'toml', 'tsx', 'typescript', 'typst', 'vim',
-                        'vimdoc', 'vue', 'xml', 'go',
-                    }, {
-                        max_jobs = 8,
-                    })
+                    local ft = vim.bo.filetype
+                    local bt = vim.bo.buftype
+
+                    -- 1. Bỏ qua các buffer đặc biệt (terminal, prompt, etc.)
+                    if bt ~= "" then return end
+
+                    -- 2. DANH SÁCH ĐEN mở rộng (Thêm 'conf' và các loại file hệ thống)
+                    local ignore = {
+                        "alpha", "yazi", "NvimTree", "lazy", "mason",
+                        "TelescopePrompt", "noice", "notify", "toggleterm",
+                        "conf", "gitconfig", "sshconfig", "zsh"
+                    }
+                    for _, v in ipairs(ignore) do
+                        if ft == v then return end
+                    end
+
+                    -- 3. KIỂM TRA VÀ CHẠY
+                    local lang = vim.treesitter.language.get_lang(ft)
+                    if lang then
+                        -- Bọc trực tiếp lệnh start vào pcall để chặn đứng assertion error từ core
+                        pcall(function()
+                            vim.treesitter.start()
+                        end)
+                    end
                 end,
             })
+
+            ts.install({ "lua", "python", "go", "rust", "markdown", "markdown_inline", "vim", "vimdoc", "query" })
         end,
-    }
+    },
 }

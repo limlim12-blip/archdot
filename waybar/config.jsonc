@@ -1,11 +1,11 @@
 {
     "reload_style_on_change": true,
     "position": "top",
-    "height": 24,
+    "height": 20,
     "margin-right": 5,
     "margin-left": 5,
     "margin-top": 1,
-    "margin-bottom": 3,
+    "margin-bottom": 0,
     "spacing": 0,
     "modules-left": [
         "custom/launcher",
@@ -23,7 +23,7 @@
         "battery"
     ],
     "hyprland/window": {
-        "format": "{title} - {class}",
+        "format": " {title} - {class}",
         "max-length": 65,
         "rewrite": {
             " - ": "",
@@ -50,7 +50,6 @@
         "format": " ",
         "on-click": "rofi -show drun",
         "on-click-right": "killall rofi",
-        "tooltip": false
     },
     "hyprland/workspaces": {
         "format": "{icon}",

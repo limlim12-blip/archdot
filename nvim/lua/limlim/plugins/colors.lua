@@ -77,8 +77,9 @@ return {
                     -- TelescopePromptNormal = { bg = "none", fg = "none" },
                     Pmenu = { bg = "surface" },
                     PmenuSel = { bg = "overlay", fg = "text" },
-                    NormalFloat = { bg = "surface" },
                     FloatBorder = { fg = "muted", bg = "surface" },
+                    QuickFixLine = { bg = "overlay", inherit = true },
+                    NormalFloat = { bg = "base" },
                 },
 
             })

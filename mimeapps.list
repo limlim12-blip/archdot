@@ -5,6 +5,14 @@ x-scheme-handler/https=google-chrome.desktop
 x-scheme-handler/about=google-chrome.desktop
 x-scheme-handler/unknown=google-chrome.desktop
 inode/directory=yazi.desktop
+image/jpeg=qimgv.desktop
+image/png=qimgv.desktop
+image/gif=qimgv.desktop
+image/webp=qimgv.desktop
+image/bmp=qimgv.desktop
+image/tiff=qimgv.desktop
+image/svg+xml=qimgv.desktop
+
 
 [Added Associations]
 application/vnd.openxmlformats-officedocument.wordprocessingml.document=google-chrome.desktop;
