@@ -9,9 +9,18 @@
 !/waybar/
 !/gtk-3.0/
 !/btop/
-!/fastfetch/
 !/ibus/
+!/cava/
+!/clipse/
+!/dunst/
+!/fastfetch/
 !/yazi/
+!/xdg-desktop-portal-termfilechooser/
+!/xdg-desktop-portal/
+!/waybar-module-music/
+!/systemd/
+!/swww/
+!/spotify-player/
 
 # 3. Un-ignore specific files
 !/mimeapps.list

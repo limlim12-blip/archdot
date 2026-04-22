@@ -1,0 +1,9 @@
+[Unit]
+Description=Timer for Rclone Google Drive Bisync
+
+[Timer]
+OnBootSec=1min
+OnUnitInactiveSec=5min
+
+[Install]
+WantedBy=timers.target
