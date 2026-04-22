@@ -16,7 +16,6 @@ vim.keymap.set('n', '<C-w>h', '<C-w>s')
 vim.keymap.set('n', '<leader>tn', ':tabnew<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>tN', ':-tabnew<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>te', ':tabe ', { noremap = true })
-
 vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")

@@ -10,3 +10,11 @@ require("easyjump"):setup({
 })
 
 require("starship"):setup()
+
+function Status:name()
+    local h = self._tab.current.hovered
+    if not h then
+        return ui.Line({})
+    end
+    return ui.Line(" " .. tostring(h.url))
+end

@@ -75,6 +75,7 @@ return {
                     -- TelescopeSelection = { fg = "rose", bg = "none" },
                     -- TelescopeSelectionCaret = { fg = "rose", bg = "rose" },
                     -- TelescopePromptNormal = { bg = "none", fg = "none" },
+                    Visual = { bg = "love" },
                     Pmenu = { bg = "surface" },
                     PmenuSel = { bg = "overlay", fg = "text" },
                     FloatBorder = { fg = "muted", bg = "surface" },
