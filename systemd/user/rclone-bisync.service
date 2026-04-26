@@ -11,7 +11,7 @@ ExecCondition=/usr/bin/ping -c 1 -W 2 8.8.8.8
 
 # The actual sync command. 
 # Note: systemd requires absolute paths. %h is systemd's variable for /home/yourusername
-ExecStart=/usr/bin/rclone bisync gdrive:/ %h/GoogleDrive
+ExecStart=rclone bisync gdrive:/ /home/lim/GoogleDrive --resync
 
 # Optional: Prevent systemd from marking the service as 'failed' if rclone hits a minor non-fatal error
 SuccessExitStatus=0 1 2 3 4 5 6 7 8 9
