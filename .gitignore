@@ -1,29 +1,30 @@
-# 1. Ignore everything by default 
 /*
 
-# 2. Un-ignore 
-!/hypr/
-!/kitty/
-!/nvim/
-!/rofi/
-!/waybar/
-!/gtk-3.0/
-!/btop/
-!/ibus/
-!/cava/
-!/clipse/
-!/dunst/
-!/fastfetch/
-!/yazi/
-!/xdg-desktop-portal-termfilechooser/
-!/xdg-desktop-portal/
-!/waybar-module-music/
-!/systemd/
-!/swww/
-!/spotify-player/
-
-# 3. Un-ignore specific files
+!/.gitignore
 !/mimeapps.list
 !/user-dirs.dirs
-!/.gitignore
+!/gtk-3.0/
+!/systemd/
+!/xdg-desktop-portal/
+!/xdg-desktop-portal-termfilechooser/
+
+!/hypr/
+!/waybar/
+!/waybar-module-music/
+!/rofi/
+!/dunst/
+!/swww/
+
+!/kitty/
+!/nvim/
 !/tmux/tmux.conf
+!/yazi/
+!/btop/
+!/fastfetch/
+!/cava/
+
+!/ibus/
+!/spotify-player/
+
+!/aurlist.txt/
+!/pkglist.txt/

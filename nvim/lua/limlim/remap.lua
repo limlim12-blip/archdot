@@ -42,7 +42,7 @@ vim.keymap.set({ "n", "v" }, "s", "\"_s")
 vim.keymap.set({ "n", "v" }, "c", "\"_c")
 vim.keymap.set({ "n", "v" }, "C", "\"_C")
 vim.keymap.set('n', '<leader>b', '<cmd>Telescope buffers<cr>', { desc = 'List buffers' })
-
+vim.keymap.set("n", "<leader><leader>", "<C-^>", { desc = "Switch to alternate file" })
 
 vim.keymap.set({ "n", "x", "o" }, "$", "g_")
 vim.keymap.set("i", "<C-c>", "<Esc>")

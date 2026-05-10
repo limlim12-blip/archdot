@@ -35,7 +35,7 @@ return {
                             settings = {
                                 python = {
                                     analysis = {
-                                        typeCheckingMode = "standard",
+                                        typeCheckingMode = "strict",
 
                                         autoSearchPaths = true,
                                         useLibraryCodeForTypes = true,
@@ -66,7 +66,7 @@ return {
                     vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
                     vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
                     vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
-                    vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end, opts)
+                    vim.keymap.set("n", "gr", require('telescope.builtin').lsp_references, opts)
                     vim.keymap.set("n", "<leader>gn", function() vim.lsp.buf.rename() end, opts)
                     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 
@@ -84,7 +84,6 @@ return {
                 end,
             })
 
-            -- Hover documentation
             vim.keymap.set('n', 'K', function()
                 vim.lsp.buf.hover({ border = "rounded" })
             end, { desc = "Hover Documentation" })

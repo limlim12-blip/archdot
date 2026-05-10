@@ -7,14 +7,16 @@
         },
         "source": "~/.config/fastfetch/logo.txt",
         "padding": {
-	        "top": 1
+	        "top": 0
 	    }
     },
     "display": {
+        "color": "magenta",
         "separator": "  "
     },
     "modules": [
 	"title",
+    "separator",
         {
             "type": "os",
             "key": "     ",
@@ -23,31 +25,6 @@
         {
             "type": "kernel",
             "key": "kernel",
-            "keyColor": "33",
-        },
-        {
-            "type": "host",
-            "format": "{5} {1}",
-            "key": "host  ",
-            "keyColor": "33",
-        },
-        {
-            "type": "packages",
-            "format": "{} (pacman)",
-            "key": "pkgs  ",
-            "keyColor": "33",  
-        },
-        {
-            "type": "cpu",
-            "format": "   {2}",
-            "key": "cpu",
-            "keyColor": "33",
-        },
-
-        {
-            "type": "gpu",
-            "format": "   {2}",
-            "key": "gpu",
             "keyColor": "33",
         },
         {
