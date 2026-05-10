@@ -25,6 +25,5 @@
 
 !/ibus/
 !/spotify-player/
-
-!/aurlist.txt/
-!/pkglist.txt/
+!/aurlist.txt
+!/pkglist.txt
